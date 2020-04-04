@@ -12,9 +12,16 @@ class DSL:
         self._grammar = {}
         self._grammar[self.start] = ['if B S', '']
         self._grammar['B'] = ['B1', 'B1 and B1']
-        self._grammar['B1'] = ['DSL.isBigger(a, INDEX , Game.getRack ) ', 'DSL.isSmaller(a, INDEX , Game.getRack )', 'DSL.givesRacko(a)',
-                               'DSL.hasRacko(Game.getRack)']
+        self._grammar['B1'] = ['DSL.isBigger(a, INDEX , Game.getRack ) ',
+                               'DSL.isSmaller(a, INDEX , Game.getRack )', 'DSL.givesRacko(a)',
+                               'DSL.hasRacko(Game.getRack)', 'DSL.isCardNumber(a, NUMBER)',
+                               'DSL.isCardBetweenNumbers(action, NUMBER, NUMBER)']
         self._grammar['INDEX'] = ['0', '1', '2', '3', '4']
+        self._grammar['NUMBER'] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+                                   '11', '12', '13', '14', '15', '16', '17', '18',
+                                   '19', '20', '21', '22', '23', '24', '25', '26', '27',
+                                   '28','29', '30', '31', '32', '33', '34', '35', '36',
+                                   '37', '38', '39']
 
 
 
@@ -26,6 +33,7 @@ class DSL:
         :param index: place in players rack
         :return: T/F
         """
+
 
         if index > 0 and action[index] > hand[index-1]:
             return True
@@ -117,6 +125,23 @@ class DSL:
             OK.saveFile("/Users/casspirlot/PycharmProjects/Project/Generated/")
 
         return list1
+
+    def isCardNumber(self, action, number):
+        # Checks whether the picked up card from any of the decks is a certain number.
+        if action == number:
+            return True
+        return False
+
+    def isCardBetweenNumbers(self, action, number1, number2):
+        # Generic function to check whether the picked up card is between two numbers.
+        if number1 <= number2:
+            if number1 <= action <=number2:
+                return True
+            return False
+        else:
+            if number2 <= action <= number1:
+                return True
+            return False
 
 
 Try = DSL()

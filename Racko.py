@@ -10,6 +10,7 @@ def print_intro():
 	The objective is to be the first player to arrange all of the cards in your rack from highest to lowest (Top to Bottom).
 	The top card of the deck is turned over to start the discard pile. Each turn, you can take the top card from either the deck or the discard pile, then discard one from your rack and insert the new card in its place. 
 	If you draw a card from the deck, you may immediately discard it; if you take the top discard, though, you must put it into your rack.
+	Note that when the cards are dealt, it gets placed in the hand from back to front.
 	''')
 def main():
 	'''
@@ -58,7 +59,7 @@ def main():
 				find_and_replace(card,card_to_be_replaced,user_hand,discard)
 			#If user does not want the deck card, add it to the discard pile
 			else:
-				discard.append(card)
+				discard.append(card) # Pass my turn
 		print("Your current hand is:")
 		print_top_to_bottom(user_hand)
 
