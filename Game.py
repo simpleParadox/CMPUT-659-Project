@@ -1,6 +1,6 @@
 import random
 import copy
-
+from copy import deepcopy
 
 class Game():
 
@@ -10,16 +10,27 @@ class Game():
             deck.append(card)
         discard = []
         random.shuffle(deck)
-        
+        self.discard = discard
+        self.deck = deck
+        print(self.deck)
         # Now deal the cards to the players.
-        self.player1_rack, self.player2_rack = self.deal_initial_hands(deck)
+        self.player1_rack, self.player2_rack = self.deal_initial_hands(self.deck)
         self.player_turn = 1
-        self.add_card_to_discard(self.get_top_card(deck), discard)
+        self.add_card_to_discard(self.get_top_card(self.deck), self.discard)
+        print(self.discard)
+        print(self.deck)
+
+    def get_top_deck(self):
+        return self.deck.pop()
+
+    def get_top_discard(self):
+
+        return self.discard.pop()
 
 
 
-    def getRack(self,player):
-        if player == 1:
+    def getRack(self):
+        if self.player_turn == 1:
             return self.player1_rack
         else:
             return self.player2_rack
@@ -31,14 +42,15 @@ class Game():
         random.shuffle(card_stack)
 
 
+
     def check_racko(self, rack):
 
         cards_in_order = 0
-        for i in range(0, 9):
-            if (rack[i] > rack[i + 1]):
+        for i in range(0, 4):
+            if rack[i] > rack[i + 1]:
                 cards_in_order = cards_in_order + 1
 
-        if cards_in_order == 9:
+        if cards_in_order == 4:
             return True
         else:
             return False
@@ -49,11 +61,20 @@ class Game():
         return card_stack.pop()
 
 
+    def create_new_deck(self):
+        if len(self.deck) < 1:
+            random.shuffle(self.discard)
+            self.deck.extend(self.discard)
+            discard = []
+            self.add_card_to_discard(self.get_top_card(self.deck), discard)
+            return self.deck
+        return self.deck
+
     def deal_initial_hands(self, deck):
 
         computer_hand = []
         user_hand = []
-        for i in range(0, 10):
+        for i in range(0, 5):
         # Deal a card to the computer and remove from deck
             card_from_deck = Game.get_top_card(self, deck)
             computer_hand.append(card_from_deck)
@@ -61,11 +82,13 @@ class Game():
             card_from_deck = Game.get_top_card(self, deck)
             user_hand.append(card_from_deck)
         return (computer_hand, user_hand)
-
+    #
+    def get_discard(self):
+        return self.discard
 
     def print_top_to_bottom(self, rack):
 
-        for i in range(0, 10):
+        for i in range(0, 5):
             print(rack[i])
 
 
@@ -84,6 +107,11 @@ class Game():
     def add_card_to_discard(self, card, discard):
 
         discard.append(card)
+        
+    def append_to_discard(self, card):
+        print("discard pile appended to", self.discard)
+        self.discard.append(card)
+        print("discard pile appended later", self.discard)
 
 
     def computer_play(self, hand, deck, discard):
@@ -131,12 +159,13 @@ class Game():
 
     def available_moves(self, card, hand):
 
-        hand1 = hand.copy
-        hand2 = hand.copy
-        hand3 = hand.copy
-        hand4 = hand.copy
-        hand5 = hand.copy
+        hand1 = deepcopy(hand)
+        hand2 = deepcopy(hand)
+        hand3 = deepcopy(hand)
+        hand4 = deepcopy(hand)
+        hand5 = deepcopy(hand)
 
+        print("hand1:", hand1)
         hand1[0] = card
         hand2[1] = card
         hand3[2] = card
@@ -150,7 +179,8 @@ class Game():
 
 
 
+game = Game()
 
-
-if __name__ == '__main__':
-    main()
+#
+# if __name__ == '__main__':
+#     main()

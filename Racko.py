@@ -99,11 +99,11 @@ def check_racko(rack):
 	Checks if a rack (Player's hand) is arranged in an ascending order - Condition for winning the game
 	'''
 	cards_in_order = 0
-	for i in range(0,9):
+	for i in range(0,5):
 		if (rack[i] > rack[i+1]):
 			cards_in_order = cards_in_order + 1
 	#print cards_in_order
-	if cards_in_order == 9:
+	if cards_in_order == 5:
 			return True
 	else:
 		return False

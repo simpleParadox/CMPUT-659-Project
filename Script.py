@@ -27,7 +27,7 @@ class Script{0}(Player):
     def get_counter_calls(self):
         return self._counter_calls 
 
-    def get_action(self, Game):
+    def get_action(self, Game, card, hand):
         actions = Game.available_moves(card, hand)
 
         for a in actions:
