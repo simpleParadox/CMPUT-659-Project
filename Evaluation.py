@@ -409,6 +409,6 @@ def EZS(generationNum, populationNum, eliteNum, tournamentNum):
 
 d = EZS(generationNum=1,populationNum=3,eliteNum=1,tournamentNum=2)
 for key in d.keys():
-    print(key._strategis)
+    print(key._strategies)
 
 # add_swapped_card_to_discard([1,2,3,4],[9,2,3,4])
