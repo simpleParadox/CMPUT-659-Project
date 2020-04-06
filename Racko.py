@@ -141,7 +141,7 @@ def find_and_replace(new_card,card_to_be_replaced,hand,discard):
 	Swaps in a new card into a rack, and adds the replaced card to the discard pile
 	'''
 	while card_to_be_replaced not in hand:
-		print(hand)
+		# print(hand)
 		card_to_be_replaced = int(input("Please select a card in your hand to be replaced"))
 	for i in range(0,10):
 		if hand[i] == card_to_be_replaced:

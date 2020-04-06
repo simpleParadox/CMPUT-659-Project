@@ -12,13 +12,13 @@ class Game():
         random.shuffle(deck)
         self.discard = discard
         self.deck = deck
-        print(self.deck)
+        # print(self.deck)
         # Now deal the cards to the players.
         self.player1_rack, self.player2_rack = self.deal_initial_hands(self.deck)
         self.player_turn = 1
         self.add_card_to_discard(self.get_top_card(self.deck), self.discard)
-        print(self.discard)
-        print(self.deck)
+        # print(self.discard)
+        # print(self.deck)
 
     def get_top_deck(self):
         return self.deck.pop()
@@ -95,7 +95,7 @@ class Game():
     def find_and_replace(self, new_card, card_to_be_replaced, hand, discard):
 
         while card_to_be_replaced not in hand:
-            print(hand)
+            # print(hand)
             card_to_be_replaced = int(input("Please select a card in your hand to be replaced"))
         for i in range(0, 10):
             if hand[i] == card_to_be_replaced:
@@ -109,9 +109,9 @@ class Game():
         discard.append(card)
         
     def append_to_discard(self, card):
-        print("discard pile appended to", self.discard)
+        # print("discard pile appended to", self.discard)
         self.discard.append(card)
-        print("discard pile appended later", self.discard)
+        # print("discard pile appended later", self.discard)
 
 
     def computer_play(self, hand, deck, discard):
@@ -165,14 +165,13 @@ class Game():
         hand4 = deepcopy(hand)
         hand5 = deepcopy(hand)
 
-        print("hand1:", hand1)
         hand1[0] = card
         hand2[1] = card
         hand3[2] = card
         hand4[3] = card
         hand5[4] = card
 
-        moves = [hand1, hand2, hand3, hand4, hand5, hand]
+        moves = [hand, hand1, hand2, hand3, hand4, hand5]
 
         return moves
 

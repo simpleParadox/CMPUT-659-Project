@@ -60,7 +60,7 @@ class DSL:
         Returns true if action will result in Racko
 
         """
-        print(action)
+        # print(action)
         if action[0] < action[1] < action[2] < action[3] < action[4]:
             return True
         else:
@@ -104,14 +104,14 @@ class DSL:
             pass
 
         if symbol not in self._grammar:
-            print('terminated')
+            # print('terminated')
             return symbol + ' '
 
         string = ''
         if counter == 0 and symbol == 'S':
             expression_list = self._grammar[symbol][0].split(' ')
-            print('in if')
-            print(expression_list)
+            # print('in if')
+            # print(expression_list)
             for symb in expression_list:
                 string = string + str(self.initialize(symb, depth-1, counter+1))
 
@@ -120,11 +120,11 @@ class DSL:
                 pass
             else:
                 index = random.randint(0, len(self._grammar[symbol])-1)
-                print(index)
-                print(symbol)
+                # print(index)
+                # print(symbol)
                 expressionList = self._grammar[symbol][index].split(' ')
-                print('in else')
-                print(expressionList)
+                # print('in else')
+                # print(expressionList)
                 for symb in expressionList:
                     string = string + str(self.initialize(symb, depth - 1, counter + 1))
         return string

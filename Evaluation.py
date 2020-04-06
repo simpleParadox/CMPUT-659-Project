@@ -37,8 +37,8 @@ def discard_or_deck(game):
     return game.get_top_discard()
 
 def get_swapped_card(old_hand, new_hand):
-    print("Old_hand",old_hand)
-    print("New hand", new_hand)
+    # print("Old_hand",old_hand)
+    # print("New hand", new_hand)
     for i in range(len(old_hand)):
         if old_hand[i] != new_hand[i]:
             return old_hand[i]
@@ -49,7 +49,8 @@ def Evaluation(player1, player2):
 
     victories1 = 0
     victories2 = 0
-    for _ in range(1):
+    for _ in range(2):
+        print("Game number", _ + 1)
         game = Game()
 
         who_won = None
@@ -64,15 +65,14 @@ def Evaluation(player1, player2):
                 # Get the card from either the top deck or the discard pile.
                 # Choose whether to take card from discard or rack'o deck.
                 game.deck = game.create_new_deck()
-                print("player1_rack_before", game.player1_rack)
+                # print("player1_rack_before", game.player1_rack)
                 top_card = discard_or_deck(game)
                 player1_rack_copy = deepcopy(game.player1_rack)
-                print("player1_rack", game.player1_rack)
+                # print("player1_rack", game.player1_rack)
                 game.player1_rack = player1.get_action(game, top_card, game.player1_rack)
-                print("Rack copy player 1", player1_rack_copy)
-                print("game rack player 1", game.player1_rack)
+                # print("Rack copy player 1", player1_rack_copy)
+                # print("game rack player 1", game.player1_rack)
                 if player1_rack_copy != game.player1_rack:
-                    print("hello world")
                     swapped_card = get_swapped_card(player1_rack_copy, game.player1_rack)
                     game.append_to_discard(swapped_card)
                 else:
@@ -81,13 +81,13 @@ def Evaluation(player1, player2):
                 game.player_turn = 2
             else:
                 game.deck = game.create_new_deck()
-                print("player2_rack_before", game.player2_rack)
+                # print("player2_rack_before", game.player2_rack)
                 top_card = discard_or_deck(game)
                 player2_rack_copy = deepcopy(game.player2_rack)
-                print("player2_rack", game.player2_rack)
+                # print("player2_rack", game.player2_rack)
                 game.player2_rack = player2.get_action(game, top_card, game.player2_rack)
-                print("Rack copy player 2", player2_rack_copy)
-                print("game rack player 2", game.player2_rack)
+                # print("Rack copy player 2", player2_rack_copy)
+                # print("game rack player 2", game.player2_rack)
                 if player2_rack_copy != game.player2_rack:
                     swapped_card = get_swapped_card(player2_rack_copy, game.player2_rack)
                     game.append_to_discard(swapped_card)
@@ -151,12 +151,12 @@ def Evaluation(player1, player2):
 
 
 
-def Eval(dictionary,times):
-    for i in dictionary.keys():
-        for j in dictionary.keys():
-            if i != j:
-                for k in range(times):
-                    Play = Evaluation(i,j)
+# def Eval(dictionary,times):
+#     for i in dictionary.keys():
+#         for j in dictionary.keys():
+#             if i != j:
+#                 for k in range(times):
+#                     Play = Evaluation(i,j)
 
 def Eval(dictionary,times):
     for i in dictionary.keys():
@@ -168,19 +168,6 @@ def Eval(dictionary,times):
                     dictionary[j] += Play[1]
     return dictionary
 
-
-
-
-# from players.scripts.PotWinner2 import Script2539
-#
-# ok = Script2539()
-#
-# from players.scripts.FirstForOne import Script189
-#
-# okk = Script189()
-# dict = {ok:0, okk:0}
-#
-# print(Eval(dict,40))
 
 def Elite(dictionary, num):
 
@@ -212,28 +199,28 @@ def Tournament(t, dictionary):
 def generateSplit(parent1, parent2):
 
     split_index1 = random.randint(0, len(parent1._strategies))
-    print(split_index1)
+    # print(split_index1)
     parent1_1 = parent1._strategies[0:split_index1+1]
     parent1_2 = parent1._strategies[split_index1 + 1: len(parent1._strategies)]
-    print("parent 1 split")
-
-    print(parent1_1)
-    print(parent1_2)
+    # print("parent 1 split")
+    #
+    # print(parent1_1)
+    # print(parent1_2)
 
 
     split_index2 = random.randint(0, len(parent2._strategies))
 
-    print(split_index2)
+    # print(split_index2)
     parent2_1= parent2._strategies[0:split_index2]
     parent2_2 = parent2._strategies[split_index2: len(parent2._strategies)]
-    print("parent 2 split")
-
-    print(parent2_1)
-    print(parent2_2)
+    # print("parent 2 split")
+    #
+    # print(parent2_1)
+    # print(parent2_2)
 
     choose = random.randint(0,3)
-    print('choose')
-    print(choose)
+    # print('choose')
+    # print(choose)
     if choose == 0:
         childStrat = np.concatenate([parent1_1, parent2_1])
     if choose == 1:
@@ -270,8 +257,8 @@ def mutate(script, j):
             new.append(script._strategies[i])
         if random.randint(0, 1) == 0:
             new.append(Try.initialize('S',3))
-            print('p')
-        print(new)
+            # print('p')
+        # print(new)
 
     Ok = Script(new, script._id + j)
     Ok.saveFile(path)
@@ -284,24 +271,24 @@ def RemoveUnused(dictionary,indictator):
     ListoKeys = []
     for guy in dictionary.keys():
         ListoKeys.append(guy)
-        print(ListoKeys)
+        # print(ListoKeys)
 
     for h in ListoKeys:
         fitVal = dictionary[h]
-        print("line 203")
-        print(fitVal)
+        # print("line 203")
+        # print(fitVal)
 
         deleteList = []
         for i in range(len(h._strategies)):
             if h._counter_calls[i] == 0:
                 deleteList.append(h._strategies[i])
-            print("210")
-            print(deleteList)
+            # print("210")
+            # print(deleteList)
         for bad in deleteList:
-            print('213')
-            print(h._strategies)
+            # print('213')
+            # print(h._strategies)
             h._strategies.remove(bad)
-            print(h._strategies)
+            # print(h._strategies)
 
 
         if len(h._strategies) != 0:
@@ -312,10 +299,10 @@ def RemoveUnused(dictionary,indictator):
             class_ = getattr(module, "Script" + str(Ok.getId()))
             inst = class_()
             newDict[inst] = fitVal
-            print("IN IF")
-            print(fitVal)
-            print(newDict)
-            print(inst)
+            # print("IN IF")
+            # print(fitVal)
+            # print(newDict)
+            # print(inst)
 
         else:
             Try = DSL()
@@ -325,7 +312,7 @@ def RemoveUnused(dictionary,indictator):
             class_ = getattr(module, "Script" + str(OK.getId()))
             inst = class_()
             newDict[inst] = 0
-            print("IN ELSE")
+            # print("IN ELSE")
 
     return newDict
 
@@ -333,45 +320,45 @@ def RemoveUnused(dictionary,indictator):
 def EZS(generationNum, populationNum, eliteNum, tournamentNum):
     indexPop = 0
     list1 = initializePopulation(populationNum, 1, 3)
-    print("Line 245: ")
-    print(list1)
+    # print("Line 245: ")
+    # print(list1)
     instList1 = []
     for k in range(len(list1)):
         module = importlib.import_module("Population.Script" + str(list1[k].getId()))
         class_ = getattr(module, "Script" + str(list1[k].getId()))
         inst = class_()
         instList1.append(inst)
-    print("Line 253: ")
-    print(instList1)
+    # print("Line 253: ")
+    # print(instList1)
 
     Dictionary = {}
     for guy in instList1:
         Dictionary[guy] = 0
-    print("line 259")
-    print(Dictionary)
+    # print("line 259")
+    # print(Dictionary)
 
     for l in range(generationNum):
         indexPop +=1
         for key in Dictionary.keys():
             Dictionary[key] = 0
-            print("line 310")
-            print(Dictionary)
+            # print("line 310")
+            # print(Dictionary)
 
         Dictionary2 = Eval(Dictionary, 1)
-        print(Dictionary2)
+        # print(Dictionary2)
 
         Dictionary2 = RemoveUnused(Dictionary2, indexPop*100)
-        print(Dictionary2)
+        # print(Dictionary2)
 
         P_prime = {}
         elite = Elite(Dictionary2, eliteNum)
-        print(Dictionary)
-        print("line 270")
-        print(elite)
+        # print(Dictionary)
+        # print("line 270")
+        # print(elite)
 
         P_prime.update(elite)
-        print('line 274')
-        print(P_prime)
+        # print('line 274')
+        # print(P_prime)
 
         numberIt = 0
         while len(P_prime) < len(Dictionary2):
@@ -391,24 +378,53 @@ def EZS(generationNum, populationNum, eliteNum, tournamentNum):
             P_prime[inst] = 0
             numberIt += 1
 
-        print('line 299')
-        print(P_prime)
+        # print('line 299')
+        # print(P_prime)
 
         Dictionary = P_prime
 
     Dictionary2 = Eval(Dictionary,3)
-    print('line 305')
-    print(Dictionary2)
-
-    print(Elite(Dictionary2,1))
+    # print('line 305')
+    # print(Dictionary2)
+    #
+    # print(Elite(Dictionary2,1))
 
     return Elite(Dictionary2,1)
 
 
+def show_essential_rules(all_strategies):
+    # This method removes redundant rules.
+    # First, for all the strategies, break them into separate rules.
+    # all_strategies is a list of all the rules including redundant rules.
+    unique_rules = set()
+    for rule in all_strategies:
+        rule = rule.replace('if','')
+        split_rules = rule.split(' and ')
+        for split_rule in split_rules:
+            unique_rules.add(split_rule.strip())
+    return list(unique_rules)
 
 
-d = EZS(generationNum=1,populationNum=3,eliteNum=1,tournamentNum=2)
-for key in d.keys():
-    print(key._strategies)
+pops = 10
+elites = 7
+tourn = 5
+gens = 4
+d = EZS(generationNum=gens,populationNum=pops,eliteNum=elites,tournamentNum=tourn)
+
+# Print the rules from the best script. Using 'set' to remove duplicate rules.
+# print(list(d.keys()))
+log_path = "C:\\Users\\Rohan\\Desktop\\Coursework\\Winter 2020\\CMPUT 659\\Projects\\Racko-Python\\"
+log_file = 'rules_log.txt'
+print("Best script is ", list(d.keys())[0]._id)
+print('Fitness value / Score is ', d[list(d.keys())[0]])
+print(set(list(d.keys())[0]._strategies))
+best_rules = show_essential_rules(list(set(list(d.keys())[0]._strategies)))
+print("Best rules are: ", best_rules)
+rules_file = open(log_path+log_file,'a+')
+rules_file.write("Population: " + str(pops) + ", ")
+rules_file.write("Generations: " + str(gens) + ", ")
+rules_file.write("Elites: " + str(elites) + ", ")
+rules_file.write("Tournaments: " + str(tourn) + "\n\n")
+rules_file.write("Best Rules are: " + str(best_rules) + "\n\n\n\n\n\n\n")
 
 # add_swapped_card_to_discard([1,2,3,4],[9,2,3,4])

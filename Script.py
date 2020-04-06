@@ -138,4 +138,4 @@ class Script{0}(Player):
 
     def print(self):
         py = self._generateTextScript()
-        print(py)
+        # print(py)
