@@ -2,12 +2,13 @@ import random
 import numpy as np
 import random
 import collections
-from game import Board, Game
-from players.scripts.player_test import PlayerTest
-from players.scripts.player_random import PlayerRandom
-from players.scripts.DSL import DSL
+from Game import Game
+from DSL import DSL
 import sys
-from players.scripts.Script import Script
+from Player import Player
+from Racko import *
+from Script import Script
+
 import importlib
 # module = importlib.import_module("Users.casspirlot.PycharmProjects.CANTSTOP.players.Generated.Script" + str(list1[0].getId()))
 # class_ = getattr(module, "Script" + str(list1[0].getId()))
@@ -15,12 +16,15 @@ import importlib
 
 def initializePopulation(size, generation, depth):
     list1 = []
+    # The following line is the directory on Rohan's computer, change
+    # this to the directory where you would like to store your scripts.
+    path = "C:\\Users\\Rohan\\Desktop\\Coursework\\Winter 2020\\CMPUT 659\\Projects\\Racko-Python\\Population\\"
     for i in range(size):
         choose = random.randint(1, 5)
         Try = DSL()
         OK = Script(Try.initializeNumerous(choose, depth),  i)
         list1.append(OK)
-        OK.saveFile("/Users/casspirlot/PycharmProjects/CANTSTOP/players/Generated/")
+        OK.saveFile(path)
 
     return list1
 
@@ -30,8 +34,7 @@ def Evaluation(player1, player2):
     victories1 = 0
     victories2 = 0
     for _ in range(100):
-        game = Game(n_players=2, dice_number=4, dice_value=3, column_range=[2, 6],
-                    offset=2, initial_height=1)
+        game = Game()
 
         is_over = False
         who_won = None
@@ -39,30 +42,24 @@ def Evaluation(player1, player2):
         number_of_moves = 0
         current_player = game.player_turn
         while not is_over:
-            moves = game.available_moves()
-            if game.is_player_busted(moves):
+            # moves = game.available_moves()
+            if current_player == 1:
+                # Get the card from either the top deck or the discard pile.
+
+                chosen_play = player1.get_action(game)
+                current_player = 2  # Change the current player.
+            else:
+                chosen_play = player2.get_action(game)
+            if chosen_play == 'n':
                 if current_player == 1:
                     current_player = 2
                 else:
                     current_player = 1
-                continue
-            else:
-                if game.player_turn == 1:
-                    chosen_play = player1.get_action(game)
-                else:
-                    chosen_play = player2.get_action(game)
-                if chosen_play == 'n':
-                    if current_player == 1:
-                        current_player = 2
-                    else:
-                        current_player = 1
-                print('Chose: ', chosen_play)
-                # game.print_board()
-                game.play(chosen_play)
-                game.print_board()
-                number_of_moves += 1
-
-                print()
+            print('Chose: ', chosen_play)
+            # game.print_board()
+            game.play(chosen_play)
+            game.print_board()
+            number_of_moves += 1
             who_won, is_over = game.is_finished()
 
             if number_of_moves >= 200:

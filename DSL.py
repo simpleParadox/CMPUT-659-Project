@@ -34,6 +34,8 @@ class DSL:
         :return: T/F
         """
 
+        # I think this function needs to be more clear and redefined.
+        # I do understand what you are trying to do but I believe the variables are inconsistent.
 
         if index > 0 and action[index] > hand[index-1]:
             return True
@@ -58,7 +60,7 @@ class DSL:
         Returns true if action will result in Racko
 
         """
-        if action[0] < action[1] and action[1] < action[2] and action[2] < action[3] and action[3] < action[4]:
+        if action[0] < action[1] < action[2] < action[3] < action[4]:
             return True
         else:
             return False
@@ -69,12 +71,31 @@ class DSL:
         Returns true if the hand has racko
 
         """
-        if hand[0] < hand[1] and hand[1] < hand[2] and hand[2] < hand[3] and hand[3] < hand[4]:
+        if hand[0] < hand[1] < hand[2] < hand[3] < hand[4]:
             return True
         else:
             return False
 
-####################################################
+    @staticmethod
+    def isCardNumber(action, number):
+        # Checks whether the picked up card from any of the decks is a certain number.
+        if action == number:
+            return True
+        return False
+
+    @staticmethod
+    def isCardBetweenNumbers(action, number1, number2):
+        # Generic function to check whether the picked up card is between two numbers.
+        if number1 <= number2:
+            if number1 <= action <= number2:
+                return True
+            return False
+        else:
+            if number2 <= action <= number1:
+                return True
+            return False
+
+    ####################################################
 
     def initialize(self, symbol, depth, counter = 0):
 
@@ -87,10 +108,10 @@ class DSL:
 
         string = ''
         if counter == 0 and symbol == 'S':
-            expressionList = self._grammar[symbol][0].split(' ')
+            expression_list = self._grammar[symbol][0].split(' ')
             print('in if')
-            print(expressionList)
-            for symb in expressionList:
+            print(expression_list)
+            for symb in expression_list:
                 string = string + str(self.initialize(symb, depth-1, counter+1))
 
         else:
@@ -125,23 +146,8 @@ class DSL:
             OK.saveFile("/Users/casspirlot/PycharmProjects/Project/Generated/")
 
         return list1
+ ###########################
 
-    def isCardNumber(self, action, number):
-        # Checks whether the picked up card from any of the decks is a certain number.
-        if action == number:
-            return True
-        return False
-
-    def isCardBetweenNumbers(self, action, number1, number2):
-        # Generic function to check whether the picked up card is between two numbers.
-        if number1 <= number2:
-            if number1 <= action <=number2:
-                return True
-            return False
-        else:
-            if number2 <= action <= number1:
-                return True
-            return False
 
 
 Try = DSL()

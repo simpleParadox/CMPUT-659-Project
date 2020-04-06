@@ -4,12 +4,26 @@ import copy
 
 class Game():
 
-    def __init__(self, rack):
-        Game.rack = rack
+    def __init__(self):
+        deck = []
+        for card in range(1, 41):
+            deck.append(card)
+        discard = []
+        random.shuffle(deck)
+        
+        # Now deal the cards to the players.
+        self.player1_rack, self.player2_rack = self.deal_initial_hands(deck)
+        self.player_turn = 1
+        self.add_card_to_discard(self.get_top_card(deck), discard)
 
-    def getRack(self):
 
-        return self.rack
+
+    def getRack(self,player):
+        if player == 1:
+            return self.player1_rack
+        else:
+            return self.player2_rack
+
 
 
     def shuffle(self, card_stack):
