@@ -49,7 +49,7 @@ def Evaluation(player1, player2):
 
     victories1 = 0
     victories2 = 0
-    for _ in range(2):
+    for _ in range(100):
         print("Game number", _ + 1)
         game = Game()
 
@@ -129,8 +129,8 @@ def Evaluation(player1, player2):
         if who_won == 2:
             victories2 += 1
     print(victories1, victories2)
-    print('Player 1: ', victories1 / (victories1 + victories2))
-    print('Player 2: ', victories2 / (victories1 + victories2))
+    # print('Player 1: ', victories1 / (victories1 + victories2))
+    # print('Player 2: ', victories2 / (victories1 + victories2))
 
     if victories1 > victories2:
         fitness1 = 1
@@ -145,7 +145,17 @@ def Evaluation(player1, player2):
         fitness2 = -1
 
     fitness = [fitness1, fitness2]
-    victories = [victories1, victories2, victories1 / (victories1 + victories2), victories2 / (victories1 + victories2)]
+    score1 = 0
+    score2 = 0
+    try:
+        score1 = victories1 / (victories1 + victories2)
+    except:
+        score1 = -np.inf
+    try:
+        score2 = victories2 / (victories1 + victories2)
+    except:
+        score2 = -np.inf
+    victories = [victories1, victories2, score1, score2]
     print("Fitness values are ", fitness)
     return victories
 
@@ -405,10 +415,10 @@ def show_essential_rules(all_strategies):
     return list(unique_rules)
 
 
-pops = 10
-elites = 7
-tourn = 5
-gens = 4
+pops = 30
+elites = 10
+tourn = 10
+gens = 8
 d = EZS(generationNum=gens,populationNum=pops,eliteNum=elites,tournamentNum=tourn)
 
 # Print the rules from the best script. Using 'set' to remove duplicate rules.
