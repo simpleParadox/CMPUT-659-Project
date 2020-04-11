@@ -10,12 +10,12 @@ class ScriptComb1(Player):
         self._id = 1001
         self._strategies = ['DSL.isBigger(a, 2 , Game.getRack() )',
                             'DSL.givesRacko(a)', 'DSL.hasRacko(Game.getRack())',
-                            'DSL.isCardBetweenNumbers(a, 21 , 12 , 3 )',
-                            'DSL.isCardBetweenNumbers(a, 26 , 33 , 3 )',
-                            'DSL.isCardBetweenNumbers(a, 4 , 34 , 4 )',
+                            'DSL.isCardBetweenNumbers(a, 21 , 12 , 3 , Game.getRack() )',
+                            'DSL.isCardBetweenNumbers(a, 26 , 33 , 3 , Game.getRack() )',
+                            'DSL.isCardBetweenNumbers(a, 4 , 34 , 4 , Game.getRack() )',
                             'DSL.isBigger(a, 1 , Game.getRack() )',
                             'DSL.isSmaller(a, 3 , Game.getRack() )',
-                            'DSL.isCardBetweenNumbers(a, 12 , 3 , 2 )']
+                            'DSL.isCardBetweenNumbers(a, 12 , 3 , 2 , Game.getRack() )']
         self._counter_calls = []
         for i in range(len(self._strategies)):
             self._counter_calls.append(0)
@@ -40,15 +40,15 @@ class ScriptComb1(Player):
                 self._counter_calls[2] += 1
                 return a
 
-            if DSL.isCardBetweenNumbers(a, 21 , 12 , 3 ):
+            if DSL.isCardBetweenNumbers(a, 21 , 12 , 3, Game.getRack()):
                 self._counter_calls[3] += 1
                 return a
 
-            if DSL.isCardBetweenNumbers(a, 26 , 33 , 3 ):
+            if DSL.isCardBetweenNumbers(a, 26 , 33 , 3, Game.getRack() ):
                 self._counter_calls[4] += 1
                 return a
 
-            if DSL.isCardBetweenNumbers(a, 4 , 34 , 4 ):
+            if DSL.isCardBetweenNumbers(a, 4 , 34 , 4, Game.getRack() ):
                 self._counter_calls[5] += 1
                 return a
 
@@ -60,7 +60,7 @@ class ScriptComb1(Player):
                 self._counter_calls[7] += 1
                 return a
 
-            if DSL.isCardBetweenNumbers(a, 12 , 3 , 2 ):
+            if DSL.isCardBetweenNumbers(a, 12 , 3 , 2, Game.getRack() ):
                 self._counter_calls[8] += 1
                 return a
         return actions[0]

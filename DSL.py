@@ -15,7 +15,7 @@ class DSL:
         self._grammar['B1'] = ['DSL.isBigger(a, INDEX , Game.getRack() ) ',
                                'DSL.isSmaller(a, INDEX , Game.getRack() )', 'DSL.givesRacko(a)',
                                'DSL.hasRacko(Game.getRack())',
-                               'DSL.isCardBetweenNumbers(a, NUMBER , NUMBER , INDEX )']
+                               'DSL.isCardBetweenNumbers(a, NUMBER , NUMBER , INDEX , Game.getRack() )']
         self._grammar['INDEX'] = ['0', '1', '2', '3', '4']
         self._grammar['NUMBER'] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
                                    '11', '12', '13', '14', '15', '16', '17', '18',
@@ -85,16 +85,21 @@ class DSL:
     #     return False
 
     @staticmethod
-    def isCardBetweenNumbers(action, number1, number2, index):
+    def isCardBetweenNumbers(action, number1, number2, index, hand):
         # Generic function to check whether the picked up card is between two numbers.
-        if number1 <= number2:
-            if number1 <= action[index] <= number2:
-                return True
-            return False
-        else:
-            if number2 <= action[index] <= number1:
-                return True
-            return False
+        for i in range(5):
+            if action[i] == hand[i]:
+                pass
+            else:
+                new = i
+                if number1 <= number2 and new == index:
+                    if number1 <= action[new] <= number2:
+                        return True
+                    return False
+                elif new == index:
+                    if number2 <= action[new] <= number1:
+                        return True
+                    return False
 
     ####################################################
 
@@ -156,4 +161,3 @@ Try = DSL()
 print(Try.initializeNumerous( 3, 3))
 
 Try.initializePopulation(3,3)
-

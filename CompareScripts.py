@@ -168,3 +168,17 @@ print(Evaluation(script_comb_2, our_script))
 # Comparing ScriptComb3 and OurScript
 print("Comparing ScriptComb3 and OurScript")
 print(Evaluation(script_comb_3, our_script))
+
+
+# Switching first player turns
+
+print("Comparing OurScript and ScriptComb1")
+print(Evaluation(our_script, script_comb_1))
+
+# Comparing ScriptComb2 and OurScript
+print("Comparing OurScript and ScriptComb2")
+print(Evaluation(our_script, script_comb_2))
+
+# Comparing ScriptComb3 and OurScript
+print("Comparing OurScript and ScriptComb3")
+print(Evaluation(our_script, script_comb_3))

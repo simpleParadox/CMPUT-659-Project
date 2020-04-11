@@ -2,6 +2,7 @@ import random
 import copy
 from copy import deepcopy
 
+
 class Game():
 
     def __init__(self):
@@ -47,7 +48,7 @@ class Game():
 
         cards_in_order = 0
         for i in range(0, 4):
-            if rack[i] > rack[i + 1]:
+            if rack[i] < rack[i + 1]:
                 cards_in_order = cards_in_order + 1
 
         if cards_in_order == 4:
@@ -55,18 +56,18 @@ class Game():
         else:
             return False
 
-
     def get_top_card(self, card_stack):
-
-        return card_stack.pop()
-
+        length = len(card_stack)
+        top = card_stack[length-1]
+        del card_stack[length-1]
+        return top
 
     def create_new_deck(self):
         if len(self.deck) < 1:
             random.shuffle(self.discard)
             self.deck.extend(self.discard)
-            discard = []
-            self.add_card_to_discard(self.get_top_card(self.deck), discard)
+            self.discard = []
+            self.add_card_to_discard(self.get_top_card(self.deck), self.discard)
             return self.deck
         return self.deck
 

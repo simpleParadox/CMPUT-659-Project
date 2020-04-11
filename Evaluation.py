@@ -30,8 +30,13 @@ def initializePopulation(size, generation, depth):
     return list1
 
 
+
 def discard_or_deck(game):
-    selection = np.random.choice(['discard', 'deck'])
+    rand = random.randint(0,1)
+    if rand==1:
+        selection = 'discard'
+    else:
+        selection = 'deck'
     if selection == 'deck':
         return game.get_top_deck()
     return game.get_top_discard()
@@ -147,17 +152,17 @@ def Evaluation(player1, player2):
     fitness = [fitness1, fitness2]
     score1 = 0
     score2 = 0
-    try:
-        score1 = victories1 / (victories1 + victories2)
-    except:
-        score1 = -np.inf
-    try:
-        score2 = victories2 / (victories1 + victories2)
-    except:
-        score2 = -np.inf
-    victories = [victories1, victories2, score1, score2]
+    # try:
+    #     score1 = victories1 / (victories1 + victories2)
+    # except:
+    #     score1 = -np.inf
+    # try:
+    #     score2 = victories2 / (victories1 + victories2)
+    # except:
+    #     score2 = -np.inf
+    # victories = [victories1, victories2, score1, score2]
     print("Fitness values are ", fitness)
-    return victories
+    return [victories1, victories2]
 
 
 
